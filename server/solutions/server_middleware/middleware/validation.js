@@ -10,7 +10,13 @@ export const isAdult = (req, res, next) => {
 
 //validKeys function
 export const validKeys = (req, res, next) => {
-  res.send("keys");
+  const { firstName, lastName, age } = req.body;
+
+  if (!firstName || !lastName || !age) {
+    const error = new Error("Some fields are missing");
+    next(error);
+  }
+  next();
 };
 
 //isFam - FbW function
