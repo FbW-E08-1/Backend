@@ -66,11 +66,31 @@ app.get("/get", (req, res, next) => {
 });
 
 //Update
-app.put("/update/:id", (req, res, next) => {
-  //1. get records from db.data
-  //2. find() id ==>req.params.id
-  //3. update properties
-  //save
+app.put("/update/:id", async (req, res, next) => {
+  const { records } = db.data;
+  let myId = await records.find((v) => v.id === req.params.id);
+
+  const { firstName, lastName } = req.body;
+  myId.firstName = firstName;
+  myId.lastName = lastName;
+
+  await db.write();
+  res.status(200).json(myId);
+});
+
+//Delete
+app.delete("/delete/:id", async (req, res) => {
+  const { records } = db.data;
+  let myId = await records.find((v) => v.id === req.params.id);
+
+  const removeIndex = records.findIndex((item) => item.id === req.params.id);
+
+  if (removeIndex != -1) {
+    records.splice(removeIndex, 1);
+  }
+
+  await db.write();
+  res.status(200).send(db.data);
 });
 
 //GLOBAL ERROR HANDLER
