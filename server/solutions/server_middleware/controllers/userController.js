@@ -1,4 +1,7 @@
 export const validationResponse = (req, res) => {
-  console.log("This is test");
   res.send("This user looks valid!");
+};
+
+export const sanitizationResponse = (req, res) => {
+  res.send(req.body);
 };

@@ -20,3 +20,13 @@ export const validKeys = (req, res, next) => {
 };
 
 //isFam - FbW function
+export const isFam = (req, res, next) => {
+  const { fbw } = req.body;
+
+  if (fbw !== "36") {
+    const error = new Error("You are in the wrong group!");
+    error.status = 400;
+    next(error);
+  }
+  next();
+};
