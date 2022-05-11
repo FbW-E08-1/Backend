@@ -1,0 +1,16 @@
+{
+  "records": [
+    {
+      "singer": "Madonna",
+      "title": "Rock",
+      "Year": 2015,
+      "id": "1652248638047"
+    },
+    {
+      "singer": "Jackson",
+      "title": "World",
+      "Year": 2010,
+      "id": "1652248669759"
+    }
+  ]
+}
