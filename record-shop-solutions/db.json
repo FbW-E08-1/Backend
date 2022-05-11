@@ -1,16 +1,27 @@
 {
   "records": [
     {
-      "singer": "Madonna",
       "title": "Rock",
-      "Year": 2015,
-      "id": "1652248638047"
-    },
+      "artist": "Tom",
+      "year": 2010,
+      "price": 50,
+      "id": "1652309535816"
+    }
+  ],
+  "users": [
     {
-      "singer": "Jackson",
-      "title": "World",
-      "Year": 2010,
-      "id": "1652248669759"
+      "firstName": "bobo",
+      "lastName": "tom",
+      "email": "bob@web.com",
+      "password": "12345",
+      "id": "1652309607260"
+    }
+  ],
+  "orders": [
+    {
+      "quantity": 25,
+      "record_id": "1652309535816",
+      "id": "1652309648172"
     }
   ]
 }
