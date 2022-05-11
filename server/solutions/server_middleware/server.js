@@ -81,6 +81,7 @@ app.put("/update/:id", async (req, res, next) => {
 //Delete
 app.delete("/delete/:id", async (req, res) => {
   const { records } = db.data;
+  console.log(records);
   let myId = await records.find((v) => v.id === req.params.id);
 
   const removeIndex = records.findIndex((item) => item.id === req.params.id);
