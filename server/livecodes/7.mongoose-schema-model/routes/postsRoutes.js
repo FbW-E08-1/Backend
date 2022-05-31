@@ -1,5 +1,10 @@
 import express from "express";
-import { createPost, getPosts } from "../controllers/postControllers.js";
+import {
+  createPost,
+  getPosts,
+  deletePost,
+  updatePost,
+} from "../controllers/postControllers.js";
 const router = express.Router();
 
 //GET request
@@ -9,4 +14,9 @@ router.get("/", getPosts);
 //POSt request
 router.post("/", createPost);
 
+//DELETE
+router.delete("/:id", deletePost);
+
+// UPDATE
+router.put("/:id", updatePost);
 export default router;
