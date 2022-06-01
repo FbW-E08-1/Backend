@@ -17,10 +17,15 @@
 //------------------------------------------
 
 // ------------  MongoDB -------------------
-import { MongoClient, ObjectId } from "mongodb";
+// import { MongoClient, ObjectId } from "mongodb";
 
-const url = "mongodb://localhost:27017";
-const dbName = "record-shop";
+// const url = "mongodb://localhost:27017";
+// const dbName = "record-shop";
+
+// -----------------------------------------
+
+// ----------- mongoose ------------------
+import userModel from "../models/userModel.js";
 
 // -----------------------------------------
 
@@ -28,62 +33,76 @@ const dbName = "record-shop";
 
 export const getUsers = (req, res, next) => {
   // const { users } = db.data;
-  const resultArray = [];
+  // const resultArray = [];
+  // MongoClient.connect(url, (err, client) => {
+  //   const db = client.db(dbName);
+  //   const collection = db.collection("users");
+  //   const info = collection.find();
+  //   info.forEach(
+  //     function (doc) {
+  //       resultArray.push(doc);
+  //     },
+  //     function () {
+  //       res.json(resultArray);
+  //     },
+  //   );
+  // });
+  try {
+    const users = await userModel.find();
+    res.status(200).json(users);
+  } catch (e) {
+    next(e);
+  }
 
-  MongoClient.connect(url, (err, client) => {
-    const db = client.db(dbName);
-    const collection = db.collection("users");
-    const info = collection.find();
-
-    info.forEach(
-      function (doc) {
-        resultArray.push(doc);
-      },
-      function () {
-        res.json(resultArray);
-      },
-    );
-  });
 };
 
 export const getUser = async (req, res, next) => {
   // const { users } = db.data;
   // let myId = await users.find((v) => v.id === req.params.id);
+  // const resultArray = [];
+  // MongoClient.connect(url, (err, client) => {
+  //   const db = client.db(dbName);
+  //   const collection = db.collection("users");
+  //   const info = collection.find({ _id: ObjectId(req.params.id) });
+  //   info.forEach(
+  //     function (doc) {
+  //       resultArray.push(doc);
+  //     },
+  //     function () {
+  //       res.json(resultArray);
+  //     },
+  //   );
+  // });
+  try {
+    const user = await userModel.findById(req.params.id);
+    res.status(200).json(user);
+  } catch (e) {
+    next(e);
+  }
 
-  const resultArray = [];
-
-  MongoClient.connect(url, (err, client) => {
-    const db = client.db(dbName);
-    const collection = db.collection("users");
-    const info = collection.find({ _id: ObjectId(req.params.id) });
-
-    info.forEach(
-      function (doc) {
-        resultArray.push(doc);
-      },
-      function () {
-        res.json(resultArray);
-      },
-    );
-  });
 };
 
 export const deleteUser = async (req, res, next) => {
   //const { users } = db.data;
   //   let myId = await users.find((v) => v.id === req.params.id);
   //const removeIndex = users.findIndex((item) => item.id === req.params.id);
-
   // if (removeIndex != -1) {
   //   users.splice(removeIndex, 1);
   // }
   // await db.write();
+  // MongoClient.connect(url, (err, client) => {
+  //   const db = client.db(dbName);
+  //   const collection = db.collection("users");
+  //   collection.deleteOne({ _id: ObjectId(req.params.id) });
+  //   res.status(200).json({ msg: "The user was successfully deleted.!" });
+  // });
+  try {
+    const user = await userModel.findByIdAndDelete(req.params.id);
+    res.status(200).json(user);
+  } catch (e) {
+    next(e);
+  }
 
-  MongoClient.connect(url, (err, client) => {
-    const db = client.db(dbName);
-    const collection = db.collection("users");
-    collection.deleteOne({ _id: ObjectId(req.params.id) });
-    res.status(200).json({ msg: "The user was successfully deleted.!" });
-  });
 };
 
 export const updateUser = async (req, res, next) => {
@@ -95,13 +114,21 @@ export const updateUser = async (req, res, next) => {
   // user.email = email;
   // user.password = password;
   // await db.write();
+  // MongoClient.connect(url, (err, client) => {
+  //   const db = client.db(dbName);
+  //   const collection = db.collection("users");
+  //   collection.updateOne({ _id: ObjectId(req.params.id) }, { $set: req.body });
+  //   res.status(200).json({ msg: "The user was successfully updated.!" });
+  // });
+  try {
+    const user = await userModel.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    res.status(200).json(user);
+  } catch (e) {
+    next(e);
+  }
 
-  MongoClient.connect(url, (err, client) => {
-    const db = client.db(dbName);
-    const collection = db.collection("users");
-    collection.updateOne({ _id: ObjectId(req.params.id) }, { $set: req.body });
-    res.status(200).json({ msg: "The user was successfully updated.!" });
-  });
 };
 
 export const addUser = async (req, res, next) => {
@@ -109,17 +136,24 @@ export const addUser = async (req, res, next) => {
   // console.log(users);
   // users.push({ ...req.body, id: Date.now().toString() });
   // await db.write();
-
-  const user = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password,
-  };
-  MongoClient.connect(url, (err, client) => {
-    const db = client.db(dbName);
-    const collection = db.collection("users");
-    collection.insertOne(user);
+  // const user = {
+  //   firstName: req.body.firstName,
+  //   lastName: req.body.lastName,
+  //   email: req.body.email,
+  //   password: req.body.password,
+  // };
+  // MongoClient.connect(url, (err, client) => {
+  //   const db = client.db(dbName);
+  //   const collection = db.collection("users");
+  //   collection.insertOne(user);
+  //   res.status(200).json(user);
+  // });
+  try {
+    const user = new userModel(req.body);
+    await user.save();
     res.status(200).json(user);
-  });
+  } catch (e) {
+    next(e);
+  }
+
 };
