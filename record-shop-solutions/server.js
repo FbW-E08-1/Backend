@@ -6,6 +6,9 @@ import ordersRouter from "./routes/orders.js";
 import recordsRouter from "./routes/records.js";
 import usersRouter from "./routes/users.js";
 
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+
 //DB -----------------------------
 //lowdb
 // import { join, dirname } from "path";
@@ -23,8 +26,11 @@ import usersRouter from "./routes/users.js";
 // db.data ||= { records: [], users: [], orders: [] };
 
 //------------------------------------------
+
+dotenv.config();
+
 const app = express();
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 app.use(cors());
 app.use(express.json());
@@ -47,6 +53,11 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(port, () => {
-  console.log("Listening on port: ", port);
-});
+mongoose
+  .connect(process.env.CONNECTION_URL)
+  .then(() =>
+    app.listen(PORT, () =>
+      console.log(`Database connected and server running on port: `, PORT),
+    ),
+  )
+  .catch((error) => console.log(error));

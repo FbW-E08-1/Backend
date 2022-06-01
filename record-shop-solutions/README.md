@@ -1,3 +1,18 @@
+## Task 05 - Mongoose and Controllers
+
+TODO:
+
+1. Please update your record's controller using Mongoose.
+2. Make sure all API endpoints for records work as they should.
+3. Repeat the process for your users and orders controllers.
+
+## Task 04 - Create schema and model
+
+TODO:
+
+1. Please set up mongoose in your server.
+2. Create a data schema and a model for our records, users and orders.
+
 ## Task 03 - Routing and error handling
 
 As we saw in the first task, there are requests like `GET` and `POST` that define what is the functionality of each endpoint. We will now introduce `PUT` and `DELETE`.
