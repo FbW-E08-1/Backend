@@ -1,3 +1,14 @@
+## TASK 06 - VALIDATION AND SANITIZATION
+
+In this task we will introduce data validation. How we will we know that the format of the email the user inserted is valid? Using `express-validator` we will validate our data before we save them in our database. If something is not valid, we will return a detailed error message to the user. After validation, we will sanitize our data using `express-validator`. Validation is about making sure our data are in the right format. Sanitzation though is all about making sure the data are also noise-free. No extra spaces, no uppercase mixed with lowercase, normalized emails etc.
+
+**TODO**
+
+1. Install `express-validator`.
+2. Validate data for the user schema.
+3. After validation of the data, please sanitize them as well.
+4. In the end, please create a custom validation middleware boilerplate and bring all your validators there.
+
 ## Task 05 - Mongoose and Controllers
 
 TODO:
@@ -8,7 +19,7 @@ TODO:
 
 ## Task 04 - Create schema and model
 
-TODO:
+**TODO:**
 
 1. Please set up mongoose in your server.
 2. Create a data schema and a model for our records, users and orders.

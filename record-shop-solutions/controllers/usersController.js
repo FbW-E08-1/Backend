@@ -26,12 +26,12 @@
 
 // ----------- mongoose ------------------
 import userModel from "../models/userModel.js";
-
+import { validationResult } from "express-validator";
 // -----------------------------------------
 
 //Controllers
 
-export const getUsers = (req, res, next) => {
+export const getUsers = async (req, res, next) => {
   // const { users } = db.data;
   // const resultArray = [];
   // MongoClient.connect(url, (err, client) => {
@@ -53,7 +53,6 @@ export const getUsers = (req, res, next) => {
   } catch (e) {
     next(e);
   }
-
 };
 
 export const getUser = async (req, res, next) => {
@@ -79,7 +78,6 @@ export const getUser = async (req, res, next) => {
   } catch (e) {
     next(e);
   }
-
 };
 
 export const deleteUser = async (req, res, next) => {
@@ -102,7 +100,6 @@ export const deleteUser = async (req, res, next) => {
   } catch (e) {
     next(e);
   }
-
 };
 
 export const updateUser = async (req, res, next) => {
@@ -128,7 +125,6 @@ export const updateUser = async (req, res, next) => {
   } catch (e) {
     next(e);
   }
-
 };
 
 export const addUser = async (req, res, next) => {
@@ -149,11 +145,15 @@ export const addUser = async (req, res, next) => {
   //   res.status(200).json(user);
   // });
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
     const user = new userModel(req.body);
     await user.save();
     res.status(200).json(user);
   } catch (e) {
     next(e);
   }
-
 };
