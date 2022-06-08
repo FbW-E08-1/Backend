@@ -1,8 +1,18 @@
 import express from "express";
 import { body } from "express-validator";
+import {
+  createIdentifier,
+  getIdentifier,
+} from "../controllers/identifierController.js";
 
 import { createUser, getUsers } from "../controllers/userControllers.js";
 const router = express.Router();
+
+//GET identifier
+router.get("/get-identifier", getIdentifier);
+
+//POST identifier
+router.post("/create-identifier", createIdentifier);
 
 //GET request
 router.get("/", getUsers);

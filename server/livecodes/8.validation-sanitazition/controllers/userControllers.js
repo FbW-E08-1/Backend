@@ -4,7 +4,7 @@ import { validationResult } from "express-validator";
 
 export const getUsers = async (req, res) => {
   try {
-    const result = await userModel.find();
+    const result = await userModel.find().select("firstName").sort("firstName");
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
