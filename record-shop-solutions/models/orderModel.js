@@ -5,10 +5,12 @@ const OrderSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  record: {
-    type: Number,
-    required: true,
-  },
+  record: [
+    {
+      ref: "Record",
+      type: mongoose.Schema.Types.ObjectId,
+    },
+  ],
 });
 
 const OrderModel = mongoose.model("Order", OrderSchema);

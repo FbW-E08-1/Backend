@@ -53,7 +53,7 @@ export const getOrders = async (req, res, next) => {
   //   }
   // });
   try {
-    const result = await orderModel.find();
+    const result = await orderModel.find().populate("record");
     res.status(200).json(result);
   } catch (error) {
     next(error);
@@ -84,7 +84,7 @@ export const getOrder = async (req, res, next) => {
   //   }
   // });
   try {
-    const order = await orderModel.findById(req.params.id);
+    const order = await orderModel.findById(req.params.id).populate("record");
     res.status(200).json(order);
   } catch (error) {
     next(error);
