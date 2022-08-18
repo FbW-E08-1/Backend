@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
+import FileBase64 from "react-file-base64";
 
 const POST = () => {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(false);
+  const [image, setImage] = useState("");
 
   const postRequestHandler = async () => {
-    const data = { firstName, email, password };
+    const data = { firstName, email, password, image };
     const response = await axios.post(
       "http://localhost:5000/create-user",
       data,
@@ -17,6 +19,7 @@ const POST = () => {
     setFirstName("");
     setEmail("");
     setPassword("");
+    setImage("");
   };
 
   return (
@@ -39,6 +42,13 @@ const POST = () => {
         type="text"
         placeholder="Insert password here"
       />
+      <FileBase64
+        multiple={false}
+        onDone={({ base64 }) => {
+          setImage(base64);
+        }}
+      />
+
       <button onClick={postRequestHandler}>Insert</button>
       <hr />
       {message ? (

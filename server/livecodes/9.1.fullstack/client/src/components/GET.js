@@ -30,6 +30,7 @@ const GET = () => {
         ? details.map((value) => {
             return (
               <div key={value._id}>
+                <img alt="myimage" src={value.image} width="50px" />
                 <h3>
                   Name: {value.firstName} | E-mail: {value.email}
                 </h3>
