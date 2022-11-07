@@ -1,11 +1,12 @@
 import React from "react";
 import { GoogleLogin } from "react-google-login";
 
-export const Login = () => {
+export const Login = ({ show, setShow }) => {
   const onSuccess = (res) => {
     console.log("Login Success: ", res);
     alert(`Welcome ${res.profileObj.name}`);
     localStorage.setItem("profile", JSON.stringify({ res }));
+    setShow(true);
   };
 
   const onFailure = (res) => {

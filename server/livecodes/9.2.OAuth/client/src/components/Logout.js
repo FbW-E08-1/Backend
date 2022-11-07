@@ -1,10 +1,16 @@
 import React from "react";
 import { GoogleLogout } from "react-google-login";
+import { useNavigate } from "react-router-dom";
 
-const Logout = () => {
+const Logout = ({ setShow, setDetals }) => {
+  const navigate = useNavigate();
+
   const onSuccess = () => {
     console.log("Logout made successfully!");
     localStorage.clear();
+    setShow(false);
+    setDetals([]);
+    navigate("/");
   };
 
   return (
