@@ -35,7 +35,7 @@ const GET = () => {
                   Name: {value.firstName} | E-mail: {value.email}
                 </h3>
                 <div style={{ display: "inline" }}>
-                  <small onClick={() => removeUser(value._id)}>Delete</small>
+                  <button style={{background:"red", color:"white"}} onClick={() => removeUser(value._id)}>Delete</button>
                 </div>
               </div>
             );
